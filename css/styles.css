@@ -1,0 +1,1094 @@
+/* ================================================================================
+   PROYECTO: Portal Web Comercial y Sistema de Compra en Línea "MNDZ Studio"
+   SUBMÓDULO: Diseño e Implementación de Páginas Web (DGETI - CBTis 225)
+   ETAPA 2 (REDISEÑO DRASTIC DARK LUXURY): Estética Flagship Boutique Masculina
+   AUTORES: Mendoza Acosta Luciano & Moncada Mendoza Nestor Matias
+   DESCRIPCIÓN: Hoja de estilos centralizada con temática Dark Luxury, degradados
+                en oro metálico, cuadrícula arquitectónica CSS, Glassmorphism,
+                Flexbox, CSS Grid y Media Queries responsivas sin alterar HTML/JS.
+   ================================================================================ */
+
+/* ================================================================================
+   1. VARIABLES GLOBALES (DESIGN TOKENS EN :root)
+   Centraliza la paleta oscura de alta gama, degradados metálicos y elevaciones.
+   ================================================================================ */
+:root {
+    /* Superficies oscuras (Escala Obsidiana -> Carbón) */
+    --bg-void: #070709;                   /* Fondo profundo de toda la página */
+    --bg-surface: #101014;                /* Fondo de secciones y tarjetas */
+    --bg-elevated: #17171d;               /* Fondo de inputs, tablas y hover */
+    --bg-glass: rgba(10, 10, 13, 0.85);   /* Cristal translúcido para el header */
+
+    /* Oro Metálico y Acentos de Marca */
+    --gold-light: #f3d06b;
+    --gold-primary: #d4af37;
+    --gold-dark: #9e7b1c;
+    --gold-gradient: linear-gradient(135deg, #f3d06b 0%, #d4af37 50%, #aa8220 100%);
+    --gold-glow: 0 0 24px rgba(212, 175, 55, 0.28);
+
+    /* Tipografía y Jerarquía de Texto */
+    --font-display: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    --text-primary: #f5f5f7;              /* Blanco titanio para títulos y datos */
+    --text-secondary: #9ca3af;            /* Plata apagado para descripciones */
+    --text-muted: #6b7280;                /* Gris técnico para etiquetas */
+    --text-on-gold: #09090b;              /* Negro intenso sobre botones dorados */
+
+    /* Bordes y Líneas Arquitectónicas */
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-gold: rgba(212, 175, 55, 0.45);
+
+    /* Estados de Transacción (Vista 6: Pago Procesado / No Procesado) */
+    --status-ok-text: #4ade80;
+    --status-ok-bg: rgba(20, 83, 45, 0.35);
+    --status-ok-border: #22c55e;
+
+    --status-err-text: #f87171;
+    --status-err-bg: rgba(127, 29, 29, 0.35);
+    --status-err-border: #ef4444;
+
+    /* Geometría y Curvas de Animación */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --ease-luxury: cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-fast: all 0.25s var(--ease-luxury);
+    --transition-smooth: all 0.4s var(--ease-luxury);
+}
+
+/* ================================================================================
+   2. RESET UNIVERSAL, SCROLLBAR PERSONALIZADO Y ANIMACIONES
+   ================================================================================ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    color-scheme: dark; /* Adapta controles nativos del navegador al modo oscuro */
+}
+
+body {
+    font-family: var(--font-display);
+    background-color: var(--bg-void);
+    /* Iluminación ambiental sutil en la parte superior */
+    background-image: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 55%);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden; /* Garantiza cero scroll horizontal en móviles */
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Barra de desplazamiento estilizada en negro y dorado */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-void);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #27272f;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-primary);
+}
+
+/* Animación cinematográfica al cambiar entre las 6 ventanas */
+@keyframes revelarVista {
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.99);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* ================================================================================
+   3. ENCABEZADO STICKY GLASSMORPHISM Y BARRA DE NAVEGACIÓN (FLEXBOX)
+   ================================================================================ */
+#encabezado-principal {
+    background-color: var(--bg-glass);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: 1.1rem 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--border-subtle);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.65);
+
+    /* Maquetación Flexbox */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+/* Identidad Tipográfica de Marca con Degradado Metálico */
+#encabezado-principal hgroup h1 {
+    font-size: 1.75rem;
+    font-weight: 900;
+    letter-spacing: 5px;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-left: 3px solid var(--gold-primary);
+    padding-left: 0.9rem;
+    line-height: 1.1;
+}
+
+#encabezado-principal hgroup p {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    padding-left: 1.05rem;
+    margin-top: 0.3rem;
+}
+
+/* Lista de navegación horizontal */
+#encabezado-principal nav ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+#encabezado-principal nav a {
+    position: relative;
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.84rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    padding: 0.55rem 0.9rem;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-fast);
+    display: inline-block;
+}
+
+/* Línea inferior dorada que se expande al pasar el cursor */
+#encabezado-principal nav a:not([href="#vista-carrito"])::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 4px;
+    width: 0;
+    height: 2px;
+    background: var(--gold-gradient);
+    transition: var(--transition-fast);
+    transform: translateX(-50%);
+}
+
+#encabezado-principal nav a:not([href="#vista-carrito"]):hover {
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.04);
+}
+
+#encabezado-principal nav a:not([href="#vista-carrito"]):hover::after {
+    width: 70%;
+}
+
+/* Botón tipo insignia metálica para el enlace del Carrito de Compras */
+#encabezado-principal nav a[href="#vista-carrito"] {
+    background: var(--gold-gradient);
+    color: var(--text-on-gold);
+    font-weight: 800;
+    margin-left: 0.35rem;
+    box-shadow: var(--gold-glow);
+}
+
+#encabezado-principal nav a[href="#vista-carrito"]:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+}
+
+/* ================================================================================
+   4. CONTENEDOR PRINCIPAL Y ESTRUCTURA DE LAS 6 VISTAS (<main> y <section>)
+   ================================================================================ */
+#contenedor-vistas {
+    max-width: 1320px;
+    margin: 2.5rem auto;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+/* Contenedor principal de cada ventana */
+#contenedor-vistas > section {
+    background-color: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    border: 1px solid var(--border-subtle);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+    animation: revelarVista 0.45s var(--ease-luxury);
+}
+
+/* Encabezado interno de cada vista */
+#contenedor-vistas > section > header {
+    margin-bottom: 2.25rem;
+    padding-bottom: 1.35rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+#contenedor-vistas > section > header h2 {
+    font-size: 1.85rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+}
+
+#contenedor-vistas > section > header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+/* ================================================================================
+   5. BANNER HERO EDITORIAL EN VISTA 1 Y BOTONES METÁLICOS GLOBALES
+   ================================================================================ */
+#vista-ropa > header {
+    position: relative;
+    overflow: hidden;
+    padding: 3.25rem 2.75rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-gold);
+    border-left: 6px solid var(--gold-primary);
+    /* Fondo con cuadrícula arquitectónica sutil + resplandor dorado */
+    background-color: #0b0b0e;
+    background-image:
+        radial-gradient(circle at 85% 25%, rgba(212, 175, 55, 0.22) 0%, transparent 50%),
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 100% 100%, 28px 28px, 28px 28px;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.7);
+}
+
+/* Etiqueta superior editorial generada por CSS puro */
+#vista-ropa > header::before {
+    content: "COLECCIÓN OFICIAL 2026 • DISEÑO URBANO DE AUTOR";
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    color: var(--gold-light);
+    background-color: rgba(212, 175, 55, 0.12);
+    border: 1px solid var(--border-gold);
+    padding: 0.35rem 0.85rem;
+    border-radius: 50px;
+    margin-bottom: 1.1rem;
+}
+
+#vista-ropa > header h2 {
+    font-size: 2.3rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+}
+
+#vista-ropa > header p {
+    color: #d1d5db;
+    font-size: 1.08rem;
+    max-width: 640px;
+    margin-bottom: 1.65rem;
+}
+
+#vista-ropa > header p:last-child {
+    margin-bottom: 0;
+}
+
+/* Estilo base para botones y enlaces de acción */
+a[role="button"],
+button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: var(--bg-elevated);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
+    padding: 0.8rem 1.45rem;
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    transition: var(--transition-fast);
+}
+
+button:hover,
+a[role="button"]:hover {
+    border-color: var(--gold-primary);
+    color: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+button:active,
+a[role="button"]:active {
+    transform: scale(0.97);
+}
+
+/* Botón Principal Dorado en Banner de Vista 1 */
+#vista-ropa > header a[role="button"] {
+    background: var(--gold-gradient);
+    color: var(--text-on-gold);
+    border: none;
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    padding: 0.95rem 1.85rem;
+    box-shadow: var(--gold-glow);
+}
+
+#vista-ropa > header a[role="button"]:hover {
+    color: var(--text-on-gold);
+    filter: brightness(1.08);
+    box-shadow: 0 10px 28px rgba(212, 175, 55, 0.45);
+}
+
+/* ================================================================================
+   6. CATÁLOGOS DE PRODUCTOS CON CSS GRID (VISTAS 1, 2 Y 3)
+   Fusiona las fotografías oscuras de MNDZ Studio con tarjetas de lujo.
+   ================================================================================ */
+section[aria-label^="Catálogo"] {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.75rem;
+}
+
+section[aria-label^="Catálogo"] > h3 {
+    grid-column: 1 / -1;
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: var(--gold-primary);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+section[aria-label^="Catálogo"] > h3::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-gold), transparent);
+}
+
+/* Tarjeta Individual de Producto */
+.tarjeta-producto {
+    background: linear-gradient(180deg, #141419 0%, #0d0d11 100%);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.8rem;
+    transition: var(--transition-smooth);
+}
+
+.tarjeta-producto:hover {
+    transform: translateY(-8px);
+    border-color: var(--border-gold);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.75), 0 0 25px rgba(212, 175, 55, 0.12);
+}
+
+/* Marco de Imagen con Zoom Suave */
+.tarjeta-producto figure {
+    background-color: #09090b;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tarjeta-producto figure img {
+    width: 100%;
+    height: 245px;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease-luxury);
+}
+
+.tarjeta-producto:hover figure img {
+    transform: scale(1.07);
+}
+
+.tarjeta-producto figcaption {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    padding: 0.55rem 0.75rem;
+    background-color: #131318;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.tarjeta-producto h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+.tarjeta-producto p {
+    font-size: 0.87rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+}
+
+/* Precio en Oro Metálico con Alineación Numérica */
+.tarjeta-producto p strong {
+    display: inline-block;
+    font-size: 1.25rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: 0.15rem 0;
+}
+
+.tarjeta-producto label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+}
+
+/* Selector de Talla / Número en Modo Oscuro */
+.tarjeta-producto select {
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-elevated);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.95em;
+    transition: var(--transition-fast);
+}
+
+.tarjeta-producto select:focus {
+    outline: none;
+    border-color: var(--gold-primary);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+}
+
+/* Botón de Compra en cada tarjeta */
+.tarjeta-producto button {
+    width: 100%;
+    margin-top: auto;
+    padding: 0.85rem;
+    background-color: #1c1c24;
+    border: 1px solid var(--border-gold);
+    color: var(--gold-light);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+.tarjeta-producto button:hover {
+    background: var(--gold-gradient);
+    color: var(--text-on-gold);
+    border-color: transparent;
+    box-shadow: var(--gold-glow);
+}
+
+/* ================================================================================
+   7. VISTA 4: CARRITO DE COMPRAS (TABLA DE PEDIDO DARK LUXURY)
+   ================================================================================ */
+#vista-carrito table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 2rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: #0c0c10;
+}
+
+#vista-carrito caption {
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    text-align: left;
+    color: var(--gold-primary);
+}
+
+#vista-carrito th,
+#vista-carrito td {
+    padding: 1.1rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+}
+
+#vista-carrito thead th {
+    background-color: #16161d;
+    color: var(--gold-light);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    border-bottom: 1px solid var(--border-gold);
+}
+
+#vista-carrito tbody tr {
+    transition: var(--transition-fast);
+}
+
+#vista-carrito tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.03);
+}
+
+#vista-carrito tfoot th,
+#vista-carrito tfoot td {
+    background-color: #14141a;
+    font-size: 1.25rem;
+    border-bottom: none;
+    border-top: 1px solid var(--border-gold);
+}
+
+#total-carrito strong {
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.35rem;
+}
+
+/* Botón eliminar fila */
+.btn-eliminar-item {
+    background-color: rgba(239, 68, 68, 0.12);
+    color: var(--status-err-text);
+    border: 1px solid rgba(239, 68, 68, 0.35);
+    padding: 0.45rem 0.9rem;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+}
+
+.btn-eliminar-item:hover {
+    background-color: var(--status-err-border);
+    color: #ffffff;
+    border-color: var(--status-err-border);
+}
+
+/* Controles inferiores del carrito */
+#vista-carrito nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#btn-vaciar-carrito {
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-subtle);
+}
+
+#btn-vaciar-carrito:hover {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: var(--status-err-text);
+    border-color: var(--status-err-border);
+}
+
+#vista-carrito nav a[role="button"] {
+    background: var(--gold-gradient);
+    color: var(--text-on-gold);
+    border: none;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 0.95rem 1.9rem;
+    box-shadow: var(--gold-glow);
+}
+
+#vista-carrito nav a[role="button"]:hover {
+    color: var(--text-on-gold);
+    filter: brightness(1.08);
+}
+
+/* ================================================================================
+   8. VISTA 5: FORMULARIO DE PAGO / CHECKOUT EN DOS COLUMNAS
+   ================================================================================ */
+#formulario-pago {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+#alerta-validacion-pago {
+    grid-column: 1 / -1;
+}
+
+#formulario-pago fieldset {
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.85rem;
+    background-color: #0c0c10;
+}
+
+#formulario-pago legend {
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--gold-light);
+    background-color: #16161d;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--border-gold);
+    border-radius: var(--radius-sm);
+}
+
+#formulario-pago p {
+    margin-bottom: 1.25rem;
+}
+
+#formulario-pago p:last-child {
+    margin-bottom: 0;
+}
+
+#formulario-pago label {
+    font-weight: 600;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-secondary);
+    display: inline-block;
+    margin-bottom: 0.45rem;
+}
+
+#formulario-pago input,
+#formulario-pago select,
+#formulario-pago textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-elevated);
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 0.95rem;
+    transition: var(--transition-fast);
+}
+
+#formulario-pago input::placeholder,
+#formulario-pago textarea::placeholder {
+    color: var(--text-muted);
+}
+
+#formulario-pago input:focus,
+#formulario-pago select:focus,
+#formulario-pago textarea:focus {
+    outline: none;
+    border-color: var(--gold-primary);
+    background-color: #1c1c24;
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.16);
+}
+
+/* Barra final de acciones del formulario */
+#formulario-pago > p:last-of-type {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border-subtle);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#formulario-pago > p:last-of-type a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+    transition: var(--transition-fast);
+}
+
+#formulario-pago > p:last-of-type a:hover {
+    color: var(--gold-light);
+}
+
+#btn-procesar-pago {
+    background: var(--gold-gradient);
+    color: var(--text-on-gold);
+    border: none;
+    font-weight: 900;
+    font-size: 0.92rem;
+    padding: 1rem 2.25rem;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    box-shadow: var(--gold-glow);
+}
+
+#btn-procesar-pago:hover {
+    color: var(--text-on-gold);
+    filter: brightness(1.08);
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.45);
+}
+
+/* ================================================================================
+   9. VISTA 6: ESTADO DE LA TRANSACCIÓN (RECIBO DIGITAL)
+   ================================================================================ */
+#vista-estado-pago {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+#mensaje-pago-exitoso,
+#mensaje-pago-rechazado {
+    max-width: 680px;
+    width: 100%;
+    margin: 1rem auto;
+    padding: 2.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid;
+    border-left-width: 6px;
+    backdrop-filter: blur(12px);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Tarjeta de Compra Exitosa */
+#mensaje-pago-exitoso {
+    background-color: var(--status-ok-bg);
+    border-color: rgba(34, 197, 94, 0.35);
+    border-left-color: var(--status-ok-border);
+    color: #dcfce7;
+    box-shadow: 0 15px 35px rgba(20, 83, 45, 0.35);
+}
+
+#mensaje-pago-exitoso h3 {
+    color: var(--status-ok-text);
+    font-size: 1.55rem;
+    font-weight: 800;
+}
+
+#mensaje-pago-exitoso a[role="button"] {
+    background: var(--gold-gradient);
+    color: var(--text-on-gold);
+    border: none;
+    font-weight: 800;
+    margin-top: 0.5rem;
+}
+
+/* Tarjeta de Pago Rechazado */
+#mensaje-pago-rechazado {
+    background-color: var(--status-err-bg);
+    border-color: rgba(239, 68, 68, 0.35);
+    border-left-color: var(--status-err-border);
+    color: #fee2e2;
+    box-shadow: 0 15px 35px rgba(127, 29, 29, 0.35);
+}
+
+#mensaje-pago-rechazado h3 {
+    color: var(--status-err-text);
+    font-size: 1.55rem;
+    font-weight: 800;
+}
+
+#mensaje-pago-rechazado a[role="button"] {
+    background-color: var(--status-err-border);
+    color: #ffffff;
+    border: none;
+}
+
+#mensaje-pago-rechazado a:not([role="button"]) {
+    color: var(--status-err-text);
+    font-weight: 700;
+    margin-left: 1rem;
+    text-decoration: underline;
+}
+
+/* ================================================================================
+   10. PIE DE PÁGINA GLOBAL (FLEXBOX)
+   ================================================================================ */
+#pie-pagina {
+    background-color: #050507;
+    color: var(--text-secondary);
+    padding: 3rem 5%;
+    margin-top: 4.5rem;
+    font-size: 0.88rem;
+    border-top: 1px solid var(--border-gold);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.65rem;
+}
+
+#pie-pagina strong {
+    color: var(--gold-primary);
+    letter-spacing: 1.5px;
+}
+
+#pie-pagina address {
+    font-style: normal;
+}
+
+#pie-pagina a {
+    color: var(--gold-light);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--gold-primary);
+}
+
+#pie-pagina a:hover {
+    color: #ffffff;
+}
+
+/* ================================================================================
+   11. CLASES DE APOYO PARA INTERACTIVIDAD JAVASCRIPT (ETAPA 3)
+   ================================================================================ */
+.oculto {
+    display: none !important;
+}
+
+#btn-menu-movil {
+    display: none;
+    background: var(--gold-gradient);
+    color: var(--text-on-gold);
+    border: none;
+    font-weight: 800;
+    padding: 0.55rem 1.05rem;
+}
+
+.alerta-visual {
+    padding: 1rem 1.35rem;
+    border-radius: var(--radius-sm);
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: 0.92rem;
+}
+
+.alerta-error {
+    background-color: var(--status-err-bg);
+    color: var(--status-err-text);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    border-left: 5px solid var(--status-err-border);
+}
+
+.alerta-info {
+    background-color: rgba(16, 16, 20, 0.95);
+    backdrop-filter: blur(12px);
+    color: var(--text-primary);
+    border: 1px solid var(--border-gold);
+    border-left: 5px solid var(--gold-primary);
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 2000;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.75);
+    animation: revelarVista 0.3s var(--ease-luxury);
+}
+
+/* ================================================================================
+   12. DISEÑO ADAPTATIVO (MEDIA QUERIES: TABLET Y MÓVIL <768px)
+   ================================================================================ */
+
+/* --- TABLETAS (768px a 1023px) --- */
+@media (max-width: 1023px) {
+    section[aria-label^="Catálogo"] {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #formulario-pago {
+        grid-template-columns: 1fr;
+    }
+
+    #encabezado-principal {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* --- DISPOSITIVOS MÓVILES (<768px) --- */
+@media (max-width: 767px) {
+    #encabezado-principal {
+        position: static;
+        padding: 1rem 1.25rem;
+    }
+
+    #encabezado-principal hgroup h1 {
+        font-size: 1.4rem;
+        letter-spacing: 3px;
+    }
+
+    #btn-menu-movil {
+        display: inline-flex;
+        align-self: flex-end;
+    }
+
+    #encabezado-principal nav {
+        display: none;
+        width: 100%;
+    }
+
+    #encabezado-principal nav.menu-abierto {
+        display: block;
+    }
+
+    #encabezado-principal nav ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.45rem;
+    }
+
+    #encabezado-principal nav a {
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.04);
+    }
+
+    #encabezado-principal nav a[href="#vista-carrito"] {
+        margin-left: 0;
+    }
+
+    #contenedor-vistas {
+        margin: 1rem auto;
+        padding: 0 0.75rem;
+    }
+
+    #contenedor-vistas > section {
+        padding: 1.35rem;
+        border-radius: var(--radius-md);
+    }
+
+    #vista-ropa > header {
+        padding: 1.75rem 1.25rem;
+    }
+
+    #vista-ropa > header h2 {
+        font-size: 1.6rem;
+    }
+
+    section[aria-label^="Catálogo"] {
+        grid-template-columns: 1fr;
+    }
+
+    /* Tabla responsiva del carrito en celular sin scroll horizontal */
+    #vista-carrito table,
+    #vista-carrito thead,
+    #vista-carrito tbody,
+    #vista-carrito tfoot,
+    #vista-carrito th,
+    #vista-carrito td,
+    #vista-carrito tr {
+        display: block;
+    }
+
+    #vista-carrito thead {
+        display: none;
+    }
+
+    #vista-carrito tr {
+        margin-bottom: 1rem;
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-sm);
+        padding: 0.75rem;
+        background-color: var(--bg-elevated);
+    }
+
+    #vista-carrito td {
+        border: none;
+        padding: 0.35rem 0.5rem;
+    }
+
+    #vista-carrito nav,
+    #formulario-pago > p:last-of-type {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #vista-carrito nav a[role="button"],
+    #vista-carrito nav button,
+    #btn-procesar-pago {
+        width: 100%;
+    }
+
+    .alerta-info {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+    }
+}
+/* ================================================================================
+   13. CARRITO ANCLADO FIJO EN LA BARRA SUPERIOR (DESKTOP Y MÓVIL)
+   ================================================================================ */
+#btn-carrito-fijo {
+    background: var(--gold-gradient);
+    color: var(--text-on-gold);
+    border: none;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 0.65rem 1.2rem;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--gold-glow);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+#btn-carrito-fijo:hover {
+    color: var(--text-on-gold);
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+}
+
+/* Mantiene el encabezado y el carrito pegados arriba incluso en celular */
+@media (max-width: 767px) {
+    #encabezado-principal {
+        position: sticky;
+        top: 0;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #encabezado-principal hgroup {
+        flex: 1 1 100%;
+    }
+
+    #btn-carrito-fijo {
+        margin-right: auto;
+    }
+}

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<!--
+================================================================================
+PROYECTO: Portal Web Comercial y Sistema de Compra en Línea "MNDZ Studio"
+SUBMÓDULO: Diseño e Implementación de Páginas Web (DGETI - CBTis 225)
+ETAPA 1-3: Maquetación Semántica HTML5 + Flujo Progresivo de Compra
+AUTORES: Mendoza Acosta Luciano & Moncada Mendoza Nestor Matias
+DESCRIPCIÓN: Portal con navegación principal de 3 categorías, carrito fijo en
+             barra superior y aparición progresiva de Pago y Estado de Pago.
+================================================================================
+-->
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MNDZ Studio - Tienda oficial de ropa, calzado, gorras, perfumes, relojes y joyería masculina.">
+    <title>MNDZ Studio | Moda y Accesorios para Hombre</title>
+
+    <!-- Hoja de estilos principal (Etapa 2) -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+    <!-- =======================================================================
+         ENCABEZADO FIJO (STICKY) CON CATEGORÍAS Y CARRITO ANCLADO A LA DERECHA
+         ======================================================================= -->
+    <header id="encabezado-principal">
+        <!-- Identidad oficial de la marca -->
+        <hgroup>
+            <h1>MNDZ STUDIO</h1>
+            <p>Moda Urbana, Accesorios y Estilo Masculino</p>
+        </hgroup>
+
+        <!-- Menú principal: únicamente las 3 secciones de catálogo -->
+        <nav aria-label="Navegación principal de categorías">
+            <ul>
+                <li><a href="#vista-ropa">1. Ropa y Calzado</a></li>
+                <li><a href="#vista-gorras">2. Gorras y Perfumes</a></li>
+                <li><a href="#vista-joyeria">3. Joyería y Relojes</a></li>
+            </ul>
+        </nav>
+
+        <!-- Botón de Carrito anclado fijamente en su lugar -->
+        <a href="#vista-carrito" id="btn-carrito-fijo" role="button" aria-label="Ver carrito de compras">
+            Carrito de Compras (0)
+        </a>
+
+        <!-- Botón hamburguesa para pantallas móviles (<768px) -->
+        <button type="button" id="btn-menu-movil" aria-label="Abrir menú de categorías" aria-expanded="false">
+            &#9776; Menú
+        </button>
+    </header>
+
+    <!-- =======================================================================
+         CONTENIDO PRINCIPAL (<main>) CON LAS 6 VISTAS INDEPENDIENTES
+         Las vistas 5 y 6 permanecen ocultas hasta avanzar en el flujo de compra.
+         ======================================================================= -->
+    <main id="contenedor-vistas">
+
+        <!-- ===================================================================
+             VISTA 1: IDENTIDAD DE MARCA Y CATÁLOGO DE ROPA / CALZADO
+             =================================================================== -->
+        <section id="vista-ropa" aria-labelledby="titulo-vista-1">
+            <header>
+                <h2 id="titulo-vista-1">Bienvenido a MNDZ Studio — Colección de Ropa</h2>
+                <p>Prendas esenciales y calzado urbano diseñados para destacar tu estilo diario.</p>
+                <p>
+                    <a href="#vista-gorras" role="button">Ir al Apartado de Gorras y Perfumes &rarr;</a>
+                </p>
+            </header>
+
+            <section aria-label="Catálogo de ropa y calzado">
+                <h3>Catálogo de Prendas y Calzado</h3>
+
+                <!-- Producto 1.1: Playeras -->
+                <article class="tarjeta-producto" data-categoria="ropa">
+                    <figure>
+                        <img src="img/playera-oversize.jpg" alt="Playera Oversize Negra MNDZ Studio" width="250" height="250">
+                        <figcaption>Corte Oversize — 100% Algodón</figcaption>
+                    </figure>
+                    <h4>Playera Básica Oversize MNDZ</h4>
+                    <p>Playera de algodón pesado en color negro mate con estampado minimalista en el pecho.</p>
+                    <p><strong>Precio: $399.00 MXN</strong></p>
+                    <label for="talla-playera">Talla:</label>
+                    <select id="talla-playera" name="talla-playera">
+                        <option value="S">Chica (S)</option>
+                        <option value="M" selected>Mediana (M)</option>
+                        <option value="L">Grande (L)</option>
+                        <option value="XL">Extra Grande (XL)</option>
+                    </select>
+                    <button type="button" data-producto="Playera Básica Oversize MNDZ" data-precio="399">
+                        Agregar al Carrito
+                    </button>
+                </article>
+
+                <!-- Producto 1.2: Pantalones -->
+                <article class="tarjeta-producto" data-categoria="ropa">
+                    <figure>
+                        <img src="img/pantalon-cargo.jpg" alt="Pantalón Cargo Urbano MNDZ" width="250" height="250">
+                        <figcaption>Ajuste Relaxed — Gabardina Resistente</figcaption>
+                    </figure>
+                    <h4>Pantalón Cargo Streetwear</h4>
+                    <p>Pantalón cargo multibolsillos en tono arena con ajuste elástico en tobillo.</p>
+                    <p><strong>Precio: $749.00 MXN</strong></p>
+                    <label for="talla-pantalon">Talla:</label>
+                    <select id="talla-pantalon" name="talla-pantalon">
+                        <option value="30">30</option>
+                        <option value="32" selected>32</option>
+                        <option value="34">34</option>
+                        <option value="36">36</option>
+                    </select>
+                    <button type="button" data-producto="Pantalón Cargo Streetwear" data-precio="749">
+                        Agregar al Carrito
+                    </button>
+                </article>
+
+                <!-- Producto 1.3: Tenis -->
+                <article class="tarjeta-producto" data-categoria="ropa">
+                    <figure>
+                        <img src="img/tenis-urbanos.jpg" alt="Tenis Urbanos Blancos MNDZ" width="250" height="250">
+                        <figcaption>Suela Vulcanizada — Piel Sintética</figcaption>
+                    </figure>
+                    <h4>Tenis Low-Top Classic White</h4>
+                    <p>Calzado urbano de perfil bajo en color blanco con detalles en gris humo.</p>
+                    <p><strong>Precio: $1,299.00 MXN</strong></p>
+                    <label for="talla-tenis">Número (MX):</label>
+                    <select id="talla-tenis" name="talla-tenis">
+                        <option value="26">26 MX</option>
+                        <option value="27" selected>27 MX</option>
+                        <option value="28">28 MX</option>
+                        <option value="29">29 MX</option>
+                    </select>
+                    <button type="button" data-producto="Tenis Low-Top Classic White" data-precio="1299">
+                        Agregar al Carrito
+                    </button>
+                </article>
+
+                <!-- Producto 1.4: Sudaderas -->
+                <article class="tarjeta-producto" data-categoria="ropa">
+                    <figure>
+                        <img src="img/sudadera-hoodie.jpg" alt="Sudadera Hoodie MNDZ Edition" width="250" height="250">
+                        <figcaption>Felpa Térmica — Capucha Doble</figcaption>
+                    </figure>
+                    <h4>Sudadera Hoodie Heavyweight</h4>
+                    <p>Sudadera con capucha y bolsa canguro en color gris carbón con bordado frontal.</p>
+                    <p><strong>Precio: $899.00 MXN</strong></p>
+                    <label for="talla-sudadera">Talla:</label>
+                    <select id="talla-sudadera" name="talla-sudadera">
+                        <option value="S">Chica (S)</option>
+                        <option value="M" selected>Mediana (M)</option>
+                        <option value="L">Grande (L)</option>
+                        <option value="XL">Extra Grande (XL)</option>
+                    </select>
+                    <button type="button" data-producto="Sudadera Hoodie Heavyweight" data-precio="899">
+                        Agregar al Carrito
+                    </button>
+                </article>
+            </section>
+        </section>
+
+        <!-- ===================================================================
+             VISTA 2: APARTADO DE GORRAS Y PERFUMES
+             =================================================================== -->
+        <section id="vista-gorras" aria-labelledby="titulo-vista-2">
+            <header>
+                <h2 id="titulo-vista-2">Gorras y Perfumes Masculinos</h2>
+                <p>Complementa tu atuendo con nuestra línea de gorras exclusivas y fragancias de larga duración.</p>
+            </header>
+
+            <section aria-label="Catálogo de gorras y perfumes">
+                <h3>Colección de Gorras y Fragancias</h3>
+
+                <!-- Producto 2.1: Gorra Snapback -->
+                <article class="tarjeta-producto" data-categoria="gorras-perfumes">
+                    <figure>
+                        <img src="img/gorra-snapback.jpg" alt="Gorra Snapback Negra MNDZ" width="250" height="250">
+                        <figcaption>Visera Plana — Broche Ajustable</figcaption>
+                    </figure>
+                    <h4>Gorra Snapback Signature Black</h4>
+                    <p>Gorra estructurada de 6 paneles con logotipo bordado en alto relieve 3D.</p>
+                    <p><strong>Precio: $450.00 MXN</strong></p>
+                    <button type="button" data-producto="Gorra Snapback Signature Black" data-precio="450">
+                        Agregar al Carrito
+                    </button>
+                </article>
+
+                <!-- Producto 2.2: Gorra Trucker -->
+                <article class="tarjeta-producto" data-categoria="gorras-perfumes">
+                    <figure>
+                        <img src="img/gorra-trucker.jpg" alt="Gorra Trucker Curva MNDZ" width="250" height="250">
+                        <figcaption>Visera Curva — Malla Transpirable</figcaption>
+                    </figure>
+                    <h4>Gorra Trucker Edition</h4>
+                    <p>Diseño ligero con panel frontal de gamuza sintética y malla trasera ventilada.</p>
+                    <p><strong>Precio: $420.00 MXN</strong></p>
+                    <button type="button" data-producto="Gorra Trucker Edition" data-precio="420">
+                        Agregar al Carrito
+                    </button>
+                </article>
+
+                <!-- Producto 2.3: Perfume Amaderado -->
+                <article class="tarjeta-producto" data-categoria="gorras-perfumes">
+                    <figure>
+                        <img src="img/perfume-noir.jpg" alt="Perfume MNDZ Noir Intense 100ml" width="250" height="250">
+                        <figcaption>Eau de Parfum — 100 ml</figcaption>
+                    </figure>
+                    <h4>Perfume MNDZ Noir Intense</h4>
+                    <p>Fragancia masculina con notas de salida cítricas, corazón de pimienta negra y fondo amaderado.</p>
+                    <p><strong>Precio: $1,150.00 MXN</strong></p>
+                    <button type="button" data-producto="Perfume MNDZ Noir Intense" data-precio="1150">
+                        Agregar al Carrito
+                    </button>
+                </article>
+
+                <!-- Producto 2.4: Perfume Fresco -->
+                <article class="tarjeta-producto" data-categoria="gorras-perfumes">
+                    <figure>
+                        <img src="img/perfume-aqua.jpg" alt="Perfume MNDZ Aqua Sport 100ml" width="250" height="250">
+                        <figcaption>Eau de Toilette — 100 ml</figcaption>
+                    </figure>
+                    <h4>Perfume MNDZ Aqua Sport</h4>
+                    <p>Aroma fresco y versátil con notas marinas, bergamota y cedro blanco para uso diario.</p>
+                    <p><strong>Precio: $980.00 MXN</strong></p>
+                    <button type="button" data-producto="Perfume MNDZ Aqua Sport" data-precio="980">
+                        Agregar al Carrito
+                    </button>
+                </article>
+            </section>
+        </section>
+
+        <!-- ===================================================================
+             VISTA 3: APARTADO DE JOYERÍA Y RELOJES
+             =================================================================== -->
+        <section id="vista-joyeria" aria-labelledby="titulo-vista-3">
+            <header>
+                <h2 id="titulo-vista-3">Joyería y Relojes</h2>
+                <p>Detalles en acero inoxidable y acabados premium para elevar cualquier ocasión.</p>
+            </header>
+
+            <section aria-label="Catálogo de relojes y joyería">
+                <h3>Colección de Relojería y Joyería</h3>
+
+                <!-- Producto 3.1: Reloj Cronógrafo -->
+                <article class="tarjeta-producto" data-categoria="joyeria">
+                    <figure>
+                        <img src="img/reloj-cronografo.jpg" alt="Reloj Cronógrafo Acero Negro MNDZ" width="250" height="250">
+                        <figcaption>Acero Inoxidable — Resistente al Agua 5ATM</figcaption>
+                    </figure>
+                    <h4>Reloj Cronógrafo Obsidian</h4>
+                    <p>Caja de 42mm en acero pavonado negro con extensible metálico y fechador integrado.</p>
+                    <p><strong>Precio: $1,850.00 MXN</strong></p>
+                    <button type="button" data-producto="Reloj Cronógrafo Obsidian" data-precio="1850">
+                        Agregar al Carrito
+                    </button>
+                </article>
+
+                <!-- Producto 3.2: Reloj Minimalista -->
+                <article class="tarjeta-producto" data-categoria="joyeria">
+                    <figure>
+                        <img src="img/reloj-cuero.jpg" alt="Reloj Clásico Correa de Piel" width="250" height="250">
+                        <figcaption>Maquinaria de Cuarzo — Correa Genuina</figcaption>
+                    </figure>
+                    <h4>Reloj Classic Silver &amp; Leather</h4>
+                    <p>Carátula limpia plateada con correa intercambiable de piel color café oscuro.</p>
+                    <p><strong>Precio: $1,490.00 MXN</strong></p>
+                    <button type="button" data-producto="Reloj Classic Silver & Leather" data-precio="1490">
+                        Agregar al Carrito
+                    </button>
+                </article>
+
+                <!-- Producto 3.3: Cadena Cubana -->
+                <article class="tarjeta-producto" data-categoria="joyeria">
+                    <figure>
+                        <img src="img/cadena-cubana.jpg" alt="Cadena Eslabón Cubano Acero" width="250" height="250">
+                        <figcaption>Acero Quirúrgico 316L — 55 cm</figcaption>
+                    </figure>
+                    <h4>Cadena Eslabón Cubano Plata</h4>
+                    <p>Cadena de 6mm de grosor resistente al agua y al sudor, con broche de seguridad.</p>
+                    <p><strong>Precio: $520.00 MXN</strong></p>
+                    <button type="button" data-producto="Cadena Eslabón Cubano Plata" data-precio="520">
+                        Agregar al Carrito
+                    </button>
+                </article>
+
+                <!-- Producto 3.4: Anillo -->
+                <article class="tarjeta-producto" data-categoria="joyeria">
+                    <figure>
+                        <img src="img/anillo-sello.jpg" alt="Anillo Sello Minimalista Negro" width="250" height="250">
+                        <figcaption>Acero Inoxidable — Acabado Cepillado</figcaption>
+                    </figure>
+                    <h4>Anillo Sello Onyx</h4>
+                    <p>Anillo masculino de diseño geométrico con piedra ónix negra incrustada.</p>
+                    <p><strong>Precio: $380.00 MXN</strong></p>
+                    <button type="button" data-producto="Anillo Sello Onyx" data-precio="380">
+                        Agregar al Carrito
+                    </button>
+                </article>
+            </section>
+        </section>
+
+        <!-- ===================================================================
+             VISTA 4: CARRITO DE COMPRAS (PASO 1 DEL FLUJO DE COMPRA)
+             =================================================================== -->
+        <section id="vista-carrito" aria-labelledby="titulo-vista-4">
+            <header>
+                <h2 id="titulo-vista-4">Paso 1 de 3 — Tu Carrito de Compras</h2>
+                <p>Revisa los artículos seleccionados antes de continuar al formulario de pago.</p>
+            </header>
+
+            <table border="1">
+                <caption>Resumen de Artículos en el Pedido</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Precio Unitario</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Subtotal</th>
+                        <th scope="col">Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-carrito"></tbody>
+                <tfoot>
+                    <tr>
+                        <th scope="row" colspan="4">Total a Pagar:</th>
+                        <td id="total-carrito" colspan="2"><strong>$0.00 MXN</strong></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <!-- Controles de avance del flujo de compra -->
+            <nav aria-label="Acciones del carrito">
+                <a href="#vista-ropa">&larr; Seguir Comprando</a>
+                <button type="button" id="btn-vaciar-carrito">Vaciar Carrito</button>
+                <a href="#vista-pago" id="btn-ir-a-pagar" role="button">Continuar al Formulario de Pago &rarr;</a>
+            </nav>
+        </section>
+
+        <!-- ===================================================================
+             VISTA 5: FORMULARIO DE PAGO (APARECE AL CONTINUAR DESDE EL CARRITO)
+             =================================================================== -->
+        <section id="vista-pago" aria-labelledby="titulo-vista-5">
+            <header>
+                <h2 id="titulo-vista-5">Paso 2 de 3 — Formulario de Pago y Envío</h2>
+                <p>Completa tus datos de entrega y método de pago para procesar tu orden.</p>
+            </header>
+
+            <form id="formulario-pago" action="#vista-estado-pago" method="post">
+                <!-- Grupo 1: Datos de envío -->
+                <fieldset>
+                    <legend>1. Datos del Cliente y Envío</legend>
+
+                    <p>
+                        <label for="nombre-cliente">Nombre Completo:</label><br>
+                        <input type="text" id="nombre-cliente" name="nombre-cliente"
+                               placeholder="Ej. Carlos Mendoza" required minlength="3">
+                    </p>
+
+                    <p>
+                        <label for="correo-cliente">Correo Electrónico:</label><br>
+                        <input type="email" id="correo-cliente" name="correo-cliente"
+                               placeholder="ejemplo@correo.com" required>
+                    </p>
+
+                    <p>
+                        <label for="telefono-cliente">Teléfono de Contacto (10 dígitos):</label><br>
+                        <input type="tel" id="telefono-cliente" name="telefono-cliente"
+                               placeholder="4771234567" pattern="[0-9]{10}" required>
+                    </p>
+
+                    <p>
+                        <label for="direccion-envio">Dirección Completa de Entrega:</label><br>
+                        <textarea id="direccion-envio" name="direccion-envio" rows="3" cols="40"
+                                  placeholder="Calle, número exterior/interior, colonia, código postal y ciudad" required></textarea>
+                    </p>
+                </fieldset>
+
+                <!-- Grupo 2: Datos de pago -->
+                <fieldset>
+                    <legend>2. Método de Pago</legend>
+
+                    <p>
+                        <label for="metodo-pago">Selecciona tu forma de pago:</label><br>
+                        <select id="metodo-pago" name="metodo-pago" required>
+                            <option value="">-- Elige una opción --</option>
+                            <option value="tarjeta-credito">Tarjeta de Crédito</option>
+                            <option value="tarjeta-debito">Tarjeta de Débito</option>
+                            <option value="transferencia">Transferencia Electrónica (SPEI)</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <label for="numero-tarjeta">Número de Tarjeta (16 dígitos):</label><br>
+                        <input type="text" id="numero-tarjeta" name="numero-tarjeta"
+                               placeholder="1234567812345678" pattern="[0-9]{16}" maxlength="16" required>
+                    </p>
+
+                    <p>
+                        <label for="fecha-expiracion">Fecha de Expiración (MM/AA):</label><br>
+                        <input type="text" id="fecha-expiracion" name="fecha-expiracion"
+                               placeholder="08/28" pattern="(0[1-9]|1[0-2])\/[0-9]{2}" maxlength="5" required>
+                    </p>
+
+                    <p>
+                        <label for="cvv-tarjeta">Código de Seguridad (CVV):</label><br>
+                        <input type="password" id="cvv-tarjeta" name="cvv-tarjeta"
+                               placeholder="123" pattern="[0-9]{3,4}" maxlength="4" required>
+                    </p>
+                </fieldset>
+
+                <!-- Controles del formulario -->
+                <p>
+                    <a href="#vista-carrito">&larr; Volver al Carrito</a>
+                    <button type="submit" id="btn-procesar-pago">Confirmar y Procesar Pago</button>
+                </p>
+            </form>
+        </section>
+
+        <!-- ===================================================================
+             VISTA 6: ESTADO DEL PAGO (APARECE TRAS CONFIRMAR EL PAGO)
+             =================================================================== -->
+        <section id="vista-estado-pago" aria-labelledby="titulo-vista-6">
+            <header>
+                <h2 id="titulo-vista-6">Paso 3 de 3 — Estado de la Transacción</h2>
+                <p>Resultado de la validación de tu pago en MNDZ Studio.</p>
+            </header>
+
+            <!-- Bloque A: Pago Procesado -->
+            <article id="mensaje-pago-exitoso" aria-live="polite">
+                <h3>&#10004; Pago Procesado Correctamente</h3>
+                <p>¡Gracias por tu compra en <strong>MNDZ Studio</strong>! Tu orden ha sido confirmada y estamos preparando tu paquete.</p>
+                <p>Número de referencia de pedido: <strong>#MNDZ-2026-001</strong></p>
+                <p>
+                    <a href="#vista-ropa" role="button">Volver a la Tienda Principal</a>
+                </p>
+            </article>
+
+            <!-- Bloque B: Pago No Procesado -->
+            <article id="mensaje-pago-rechazado" aria-live="polite">
+                <h3>&#10006; Pago No Procesado</h3>
+                <p>Lo sentimos, no fue posible completar el cargo. Verifica que los datos de tu tarjeta sean correctos o intenta con otro método de pago.</p>
+                <p>
+                    <a href="#vista-pago" role="button">Reintentar Pago</a>
+                    <a href="#vista-carrito">Revisar Carrito</a>
+                </p>
+            </article>
+        </section>
+
+    </main>
+
+    <!-- =======================================================================
+         PIE DE PÁGINA GLOBAL (<footer>)
+         ======================================================================= -->
+    <footer id="pie-pagina">
+        <p><strong>MNDZ Studio</strong> — Moda y Accesorios Masculinos &copy; 2026. Todos los derechos reservados.</p>
+        <p>Desarrollado por: Mendoza Acosta Luciano y Moncada Mendoza Nestor Matias | CBTis 225 - Programación.</p>
+        <address>
+            Contacto y soporte: <a href="mailto:soporte@mndzstudio.com">soporte@mndzstudio.com</a> | León, Guanajuato, México.
+        </address>
+    </footer>
+
+    <!-- Lógica cliente JavaScript (Etapa 3) -->
+    <script src="js/main.js"></script>
+
+</body>
+</html>
